@@ -1,0 +1,37 @@
+logging:
+  level:
+    org.springframework.web.servlet: DEBUG
+    org.springframework: ERROR
+    com.tabgraph: DEBUG
+    org:
+      hibernate:
+        sql: debug
+        type:
+          descriptor:
+            sql: error
+
+server:
+  port: 8083
+  error:
+    include-message: always
+
+service:
+  configs:
+    - name: account
+      url: http://localhost:8082
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        format_sql: true
+    show-sql: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo
+    username: root
+    password: demo
+    validation-query: SELECT 1
