@@ -6,6 +6,8 @@ import com.example.microsvc.sb.dto.Balance;
 import com.example.microsvc.sb.model.Account;
 import com.example.microsvc.sb.model.Transaction;
 import com.example.microsvc.sb.repo.TransactionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ import java.util.Optional;
 
 @Service
 public class TransactionService {
+
+    private static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
 
     private static final String ACCOUNT_SERVICE_NAME = "account";
 
@@ -42,6 +46,7 @@ public class TransactionService {
             throw new RuntimeException(String.format("No config defined for service: '%s'", ACCOUNT_SERVICE_NAME));
         }
         accountServiceUrl = serviceConfig.getUrl();
+        logger.debug("accountServiceUrl is configured to {}", accountServiceUrl);
     }
 
     public Optional<Transaction> getTransactionById(int id) {
@@ -52,7 +57,9 @@ public class TransactionService {
         try {
             ResponseEntity<Account> response = restTemplate.getForEntity(
                     accountServiceUrl + "/rest/" + id, Account.class);
-            return response.getBody();
+            Account account = response.getBody();
+            logger.debug("Get account: {} by id: {} from account service: {}", account, id, accountServiceUrl);
+            return account;
         } catch (HttpStatusCodeException ex) {
             if (ex.getRawStatusCode() == 404) {
                 throw new ResponseStatusException(
