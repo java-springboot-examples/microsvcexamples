@@ -44,4 +44,9 @@ public class Transaction {
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return String.format("{ id: %d, account: %s, amount: %f, time: %s}", id, account, amount, time);
+    }
 }

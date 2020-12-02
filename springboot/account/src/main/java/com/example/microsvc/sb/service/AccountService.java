@@ -69,15 +69,18 @@ public class AccountService {
     }
 
     public List<Account> getAccountsByCustomer(int cid) {
+        logger.debug("Getting accounts for customer by id: {} from database.", cid);
         Customer customer = getCustomer(cid);
         return accountRepository.findByCustomer(customer.getId());
     }
 
     public Account saveAccount(Account account) {
+        logger.debug("Saving account: {} to database.", account);
         return accountRepository.save(account);
     }
 
     public void removeAccount(Account account) {
+        logger.debug("Removing account: {} from database.", account);
         accountRepository.delete(account);
     }
 }

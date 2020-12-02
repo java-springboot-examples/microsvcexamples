@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,7 @@ public class TransactionService {
     }
 
     public Optional<Transaction> getTransactionById(int id) {
+        logger.debug("Getting transaction by id: {} from database.", id);
         return transactionRepository.findById(id);
     }
 
@@ -70,11 +72,13 @@ public class TransactionService {
     }
 
     public List<Transaction> getTransactionsByAccount(String accountId) {
+        logger.debug("Getting transactions for account by id: {} from database.", accountId);
         Account account = getAccount(accountId);
         return transactionRepository.findByAccount(account.getId());
     }
 
     public List<Transaction> getTransactionsByAccount(String accountId, LocalDateTime from, LocalDateTime to) {
+        logger.debug("Getting transactions for account by id: {} between {} and {} from database.", accountId, from, to);
         Account account = getAccount(accountId);
         return transactionRepository.findByAccountAndTimeBetween(account.getId(), from, to);
     }
@@ -83,18 +87,22 @@ public class TransactionService {
         if (transaction.getTime() == null) {
             transaction.setTime(LocalDateTime.now());
         }
+        logger.debug("Adding new transaction: {} to database.", transaction);
         return transactionRepository.save(transaction);
     }
 
     public void removeTransaction(Transaction transaction) {
+        logger.debug("Removing transaction: {} from database.", transaction);
         transactionRepository.delete(transaction);
     }
 
     public Balance getAccountBalance(String accountId, LocalDateTime time) {
+        logger.debug("Getting account balance by summing transaction amount for account by id: {} at {} from database.",
+                accountId, time);
         Account account = getAccount(accountId);
-        float amount = transactionRepository.sumTransactionAmount(accountId, time);
         Balance balance = new Balance();
-        balance.setAmount(amount);
+        BigDecimal amount = BigDecimal.valueOf(transactionRepository.sumTransactionAmount(accountId, time));
+        balance.setAmount(amount.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue());
         balance.setCurrency(account.getCurrency());
         balance.setTime(time);
         return balance;
