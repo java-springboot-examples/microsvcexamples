@@ -9,7 +9,7 @@ import java.util.List;
 
 @Configuration
 @ConfigurationProperties(prefix = "service")
-public class ServiceConfigs {
+public class ServiceConfigurations {
 
     private List<ServiceConfig> configs;
 

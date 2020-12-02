@@ -1,7 +1,7 @@
 package com.example.microsvc.sb.service;
 
 import com.example.microsvc.sb.ServiceConfig;
-import com.example.microsvc.sb.ServiceConfigs;
+import com.example.microsvc.sb.ServiceConfigurations;
 import com.example.microsvc.sb.dto.Balance;
 import com.example.microsvc.sb.model.Account;
 import com.example.microsvc.sb.model.Transaction;
@@ -29,7 +29,7 @@ public class TransactionService {
     private static final String ACCOUNT_SERVICE_NAME = "account";
 
     @Autowired
-    private ServiceConfigs serviceConfigs;
+    private ServiceConfigurations serviceConfigs;
 
     @Autowired
     private RestTemplate restTemplate;

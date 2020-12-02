@@ -21,6 +21,8 @@ service:
       url: http://localhost:8082
 
 spring:
+  main:
+    banner-mode: CONSOLE
   jpa:
     hibernate:
       ddl-auto: none

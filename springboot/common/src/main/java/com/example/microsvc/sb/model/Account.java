@@ -1,7 +1,6 @@
 package com.example.microsvc.sb.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,6 +14,7 @@ public class Account {
         CHECKING,
         SAVING,
     }
+
     @Enumerated(EnumType.STRING)
     private Type type;
 
@@ -61,5 +61,11 @@ public class Account {
 
     public void setTimeCreated(LocalDateTime timeCreated) {
         this.timeCreated = timeCreated;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{ id: %s, customer: %d, type: %s, currency: %s, timeCreated: %s}",
+                id, customer, type, currency, timeCreated);
     }
 }

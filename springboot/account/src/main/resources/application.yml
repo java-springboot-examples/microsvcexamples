@@ -1,5 +1,6 @@
 logging:
   level:
+    #root: ERROR # set root level in logback config
     org.springframework.web.servlet: DEBUG
     org.springframework: ERROR
     com.example: DEBUG
@@ -21,6 +22,8 @@ service:
       url: http://localhost:8081
 
 spring:
+  main:
+    banner-mode: CONSOLE
   jpa:
     hibernate:
       ddl-auto: none
