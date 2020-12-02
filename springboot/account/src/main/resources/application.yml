@@ -34,7 +34,7 @@ spring:
         format_sql: true
     show-sql: false
   datasource:
-    url: jdbc:mysql://localhost:3306/demo
+    url: jdbc:mysql://localhost:3306/demo?createDatabaseIfNotExist=true
     username: root
     password: demo
     validation-query: SELECT 1

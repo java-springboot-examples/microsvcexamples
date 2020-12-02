@@ -1,0 +1,15 @@
+logging:
+  level:
+    org.springframework: ERROR
+    com.example: INFO
+
+server:
+  port: 8081
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysql5:3306/demo?createDatabaseIfNotExist=true
+    username: root
+    password: demo
