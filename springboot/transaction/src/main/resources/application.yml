@@ -2,7 +2,7 @@ logging:
   level:
     org.springframework.web.servlet: DEBUG
     org.springframework: ERROR
-    com.example: DEBUG
+    microsvc: DEBUG
     org:
       hibernate:
         sql: debug

@@ -3,7 +3,7 @@ logging:
     #root: ERROR # set root level in logback config
     org.springframework.web.servlet: DEBUG
     org.springframework: ERROR
-    com.example: DEBUG
+    microsvc: DEBUG
     org:
       hibernate:
         sql: debug

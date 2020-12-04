@@ -3,14 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.example.microsvc</groupId>
+		<groupId>microsvc</groupId>
 		<artifactId>springboot</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.example.microsvc.sb</groupId>
+	<groupId>microsvc.sb</groupId>
 	<artifactId>transaction</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>transaction</name>
 	<description>Demo project for Spring Boot Micro Service</description>
 
@@ -20,7 +20,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.example.microsvc.sb</groupId>
+			<groupId>microsvc.sb</groupId>
 			<artifactId>common</artifactId>
 			<version>${common.version}</version>
 		</dependency>
@@ -50,8 +50,9 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${exec-maven-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</build>

@@ -27,3 +27,10 @@ If any docker image of the microservices does not exist, it will also build one.
 This command will stop and kill all containers started by the `startup.sh` script.
 
 
+- Deploy
+
+```shell
+mvn clean deploy -Ddocker.user=<username> -Ddocker.password=<passwd>
+```
+
+This command deploys the docker image to docker hub

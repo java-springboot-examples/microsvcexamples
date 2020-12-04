@@ -8,16 +8,21 @@
         <version>2.4.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example.microsvc</groupId>
+    <groupId>microsvc</groupId>
     <artifactId>springboot</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <description>Common lib for demo project for Spring Boot Micro Service</description>
 
     <properties>
         <java.version>1.8</java.version>
         <springboot.version>2.4.0</springboot.version>
-        <common.version>0.0.1-SNAPSHOT</common.version>
+        <common.version>1.0.0</common.version>
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <docker.org>jsu216</docker.org>
+        <docker.user>placeholder</docker.user>
+        <docker.password>placeholder</docker.password>
     </properties>
 
     <modules>
@@ -27,4 +32,100 @@
         <module>transaction</module>
     </modules>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${exec-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>docker-clean</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>rmi</argument>
+                                    <argument>${docker.org}/${project.groupId}.${project.artifactId}:latest</argument>
+                                    <argument>
+                                        ${docker.org}/${project.groupId}.${project.artifactId}:${project.version}
+                                    </argument>
+                                </arguments>
+                                <successCodes>
+                                    <successCode>0</successCode>
+                                    <successCode>1</successCode>
+                                </successCodes>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>docker-build</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>build</argument>
+                                    <argument>-t</argument>
+                                    <argument>
+                                        ${docker.org}/${project.groupId}.${project.artifactId}:${project.version}
+                                    </argument>
+                                    <argument>-t</argument>
+                                    <argument>${docker.org}/${project.groupId}.${project.artifactId}:latest</argument>
+                                    <argument>.</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>docker-login</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <longModulepath>false</longModulepath>
+                                <arguments>
+                                    <argument>login</argument>
+                                    <argument>-u</argument>
+                                    <argument>${docker.user}</argument>
+                                    <argument>-p</argument>
+                                    <argument>${docker.password}</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>docker-push</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                            <configuration>
+                                <executable>docker</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>push</argument>
+                                    <argument>${docker.org}/${project.groupId}.${project.artifactId}</argument>
+                                </arguments>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
