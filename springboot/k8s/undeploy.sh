@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z $1]
+if [ -z "$1" ]
 then
   echo "Please specify the application name to be undeployed!"
   exit
