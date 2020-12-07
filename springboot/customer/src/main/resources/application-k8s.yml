@@ -1,0 +1,16 @@
+logging:
+  config: classpath:/logback-k8s.xml
+  level:
+    org.springframework: ERROR
+    microsvc: DEBUG
+
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysql5:3306/demo?createDatabaseIfNotExist=true
+    username: root
+    password: demo

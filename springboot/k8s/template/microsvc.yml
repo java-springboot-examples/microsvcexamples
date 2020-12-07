@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP}
+  namespace: ${NS}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${APP}
+  template:
+    metadata:
+      labels:
+        app: ${APP}
+    spec:
+      containers:
+        - name: ${APP}
+          image: ${IMAGE}:${IMAGE_TAG}
+          imagePullPolicy: ${IMAGE_POLICY}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: k8s
+          ports:
+            - name: http-port
+              containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ${APP}
+  namespace: ${NS}
+spec:
+  selector:
+    app: ${APP}
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http-port
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ${APP}
+  namespace: ${NS}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: Authorization, origin, accept
+    nginx.ingress.kubernetes.io/cors-allow-methods: GET, PUT, POST, DELETE, OPTIONS
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+spec:
+  rules:
+    - host: ${HOST}
+      http:
+        paths:
+          - path: /${APP}(/|$)(.*)
+            pathType: Exact
+            backend:
+              service:
+                name: ${APP}
+                port:
+                  number: 80

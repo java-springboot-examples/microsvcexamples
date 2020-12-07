@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql5
+  namespace: ${NS}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql5
+  template:
+    metadata:
+      labels:
+        app: mysql5
+    spec:
+      containers:
+        - name: mysql5
+          image: mysql:5
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "demo"
+          ports:
+            - name: tcp-port
+              containerPort: 3306
+        - name: phpmyadmin
+          image: phpmyadmin/phpmyadmin:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PMA_HOST
+              value: "127.0.0.1"
+            - name: PMA_PORT
+              value: "3306"
+            - name: UPLOAD_LIMIT
+              value: "20M"
+          ports:
+            - name: http-port
+              containerPort: 80
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql5
+  namespace: ${NS}
+spec:
+  selector:
+    app: mysql5
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http-port
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
+      name: tcp-port
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mysql5
+  namespace: ${NS}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-body-size: "20M"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+spec:
+  rules:
+    - host: ${HOST}
+      http:
+        paths:
+          - path: /mysql5(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: mysql5
+                port:
+                  number: 80
