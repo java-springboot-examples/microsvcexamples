@@ -2,7 +2,7 @@
 <configuration>
     <contextName>account-sb</contextName>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+        <!--<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
                 <contextName>
                     <fieldName>app</fieldName>
@@ -37,6 +37,10 @@
                     <fieldName>message</fieldName>
                 </message>
             </providers>
+        </encoder>-->
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <includeContext>true</includeContext>
+            <provider class="net.logstash.logback.composite.loggingevent.ContextNameJsonProvider"/>
         </encoder>
     </appender>
     <root level="INFO">
