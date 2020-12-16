@@ -8,10 +8,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static microsvc.sb.ServiceConfig.HTTP_HEADER_CORRELATION_ID;
+
 @Component
 public class ServiceHandlerInterceptor implements HandlerInterceptor {
-
-    final static String HTTP_HEADER_CORRELATION_ID = "x-correlation-id";
 
     @Override
     public boolean preHandle(

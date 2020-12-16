@@ -1,6 +1,10 @@
 package microsvc.sb;
 
 public class ServiceConfig {
+
+    public final static String HTTP_HEADER_CORRELATION_ID = "x-correlation-id";
+
+
     private String name;
     private String url;
 
