@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <contextName>accountsvc</contextName>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--<pattern>%-4r [%t] %5p %c{1} - %m - correlation.id=%X{x-correlation-id}%n</pattern>-->

@@ -1,6 +1,7 @@
 logging:
   config: classpath:/logback-k8s.xml
   level:
+    org.springframework.web.servlet: ERROR
     org.springframework: ERROR
     microsvc: DEBUG
 

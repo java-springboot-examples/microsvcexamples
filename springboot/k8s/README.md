@@ -15,7 +15,7 @@ Before deploy or undeploy, confirm the settings in `env.sh` are correctly.
 Remove all services
 
 ```shell
-./undeploy_all.sh
+./undeploy_allsvc.sh
 ```
 
 Remove an individual service

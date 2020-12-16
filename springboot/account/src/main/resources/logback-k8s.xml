@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <contextName>accountsvc</contextName>
+    <contextName>account-sb</contextName>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
@@ -34,7 +34,7 @@
                     <fieldName>stack</fieldName>
                 </stackTrace>
                 <message>
-                    <fieldName>msg</fieldName>
+                    <fieldName>message</fieldName>
                 </message>
             </providers>
         </encoder>
