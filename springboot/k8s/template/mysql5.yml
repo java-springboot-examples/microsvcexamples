@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql5
+  name: ${APP}
   namespace: ${NS}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mysql5
+      app: ${APP}
   template:
     metadata:
       labels:
-        app: mysql5
+        app: ${APP}
     spec:
       containers:
-        - name: mysql5
+        - name: ${APP}
           image: mysql:5
           imagePullPolicy: IfNotPresent
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "demo"
+              value: ${MYSQL_ROOT_PASSWORD}
           ports:
             - name: tcp-port
               containerPort: 3306
-        - name: phpmyadmin
-          image: phpmyadmin/phpmyadmin:latest
+        - name: ${APP_PHPMYADMIN}
+          image: ${IMAGE_PHPMYADMIN}:${IMAGE_PHPMYADMIN_TAG}
           imagePullPolicy: IfNotPresent
           env:
             - name: PMA_HOST
@@ -41,11 +41,11 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: mysql5
+  name: ${APP}
   namespace: ${NS}
 spec:
   selector:
-    app: mysql5
+    app: ${APP}
   ports:
     - port: 80
       targetPort: 80
@@ -60,7 +60,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mysql5
+  name: ${APP}
   namespace: ${NS}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -72,10 +72,10 @@ spec:
     - host: ${HOST}
       http:
         paths:
-          - path: /mysql5(/|$)(.*)
+          - path: /${APP}(/|$)(.*)
             pathType: Prefix
             backend:
               service:
-                name: mysql5
+                name: ${APP}
                 port:
                   number: 80
