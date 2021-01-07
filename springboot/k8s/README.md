@@ -15,11 +15,11 @@ Before deploy or undeploy, confirm the settings in `env.sh` are correctly.
 Remove all services
 
 ```shell
-./undeploy_allsvc.sh
+./undeploy.sh
 ```
 
 Remove an individual service
 
 ```shell
-./undeploy.sh customer-sb
+./undeploy_svc.sh customer-sb
 ```
