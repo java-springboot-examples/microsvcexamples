@@ -1,5 +1,5 @@
 #!/bin/bash
 
-./undeploy.sh transaction-sb
-./undeploy.sh account-sb
-./undeploy.sh customer-sb
+./undeploy_svc.sh transaction-sb
+./undeploy_svc.sh account-sb
+./undeploy_svc.sh customer-sb
