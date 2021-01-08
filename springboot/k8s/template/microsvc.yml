@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${APP}
+  name: ${NAME}
   namespace: ${NS}
 spec:
   replicas: 1
@@ -14,7 +14,7 @@ spec:
         app: ${APP}
     spec:
       containers:
-        - name: ${APP}
+        - name: ${NAME}
           image: ${IMAGE}:${IMAGE_TAG}
           imagePullPolicy: ${IMAGE_POLICY}
           env:
@@ -27,7 +27,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: ${APP}
+  name: ${NAME}
   namespace: ${NS}
 spec:
   selector:
@@ -42,7 +42,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ${APP}
+  name: ${NAME}
   namespace: ${NS}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -55,10 +55,10 @@ spec:
     - host: ${HOST}
       http:
         paths:
-          - path: /${APP}(/|$)(.*)
+          - path: /${NAME}(/|$)(.*)
             pathType: Exact
             backend:
               service:
-                name: ${APP}
+                name: ${NAME}
                 port:
-                  number: 80
+                  name: http-port
