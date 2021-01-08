@@ -36,7 +36,6 @@ spec:
           ports:
             - name: http-port
               containerPort: 80
-
 ---
 kind: Service
 apiVersion: v1
@@ -68,6 +67,8 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
 spec:
+  selector:
+    app: ${APP}
   rules:
     - host: ${HOST}
       http:
@@ -78,4 +79,4 @@ spec:
               service:
                 name: ${APP}
                 port:
-                  number: 80
+                  name: http-port
