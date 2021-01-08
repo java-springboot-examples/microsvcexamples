@@ -23,7 +23,7 @@ spec:
           ports:
             - name: tcp-port
               containerPort: 3306
-        - name: ${APP_PHPMYADMIN}
+        - name: ${NAME_PHPMYADMIN}
           image: ${IMAGE_PHPMYADMIN}:${IMAGE_PHPMYADMIN_TAG}
           imagePullPolicy: IfNotPresent
           env:
@@ -62,7 +62,7 @@ metadata:
   name: ${APP}
   namespace: ${NS}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-body-size: "20M"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
@@ -71,10 +71,10 @@ spec:
     - host: ${HOST}
       http:
         paths:
-          - path: /${APP}(/|$)(.*)
+          - path: /
             pathType: Prefix
             backend:
               service:
                 name: ${APP}
                 port:
-                  name: http-port
+                  number: 80

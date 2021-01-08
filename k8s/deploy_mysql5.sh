@@ -7,6 +7,7 @@ export IMAGE_TAG=5
 export IMAGE_PHPMYADMIN=phpmyadmin/phpmyadmin
 export IMAGE_PHPMYADMIN_TAG=latest
 export MYSQL_ROOT_PASSWORD=demo
+export HOST=mysql5.k8snode1
 
 kubectl create ns "$NS" | true
 
