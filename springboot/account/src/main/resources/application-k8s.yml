@@ -9,7 +9,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: beans, env, flyway, health, info, prometheus
+        include: beans, env, flyway, health, info, metrics, prometheus
   endpoint:
     health:
       show-details: always
@@ -26,6 +26,6 @@ service:
 
 spring:
   datasource:
-    url: jdbc:mysql://mysql5:3306/demo?createDatabaseIfNotExist=true
+    url: jdbc:mysql://mysql5.datastore:3306/demo?createDatabaseIfNotExist=true
     username: root
     password: demo

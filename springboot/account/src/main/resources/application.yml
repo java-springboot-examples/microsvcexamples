@@ -1,3 +1,9 @@
+info:
+  app:
+    name: account-sb
+    description: Account service based on Spring Boot.
+    version: @project.version@
+
 logging:
   level:
     #root: ERROR # set root level in logback config

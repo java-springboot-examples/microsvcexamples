@@ -1,3 +1,9 @@
+info:
+  app:
+    name: transaction-sb
+    description: Transaction service based on Spring Boot.
+    version: @project.version@
+
 logging:
   level:
     org.springframework.web.servlet: DEBUG
