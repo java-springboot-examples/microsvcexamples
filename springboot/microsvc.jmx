@@ -7,7 +7,43 @@
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
       <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-        <collectionProp name="Arguments.arguments"/>
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="ACCOUNT_ID" elementType="Argument">
+            <stringProp name="Argument.name">ACCOUNT_ID</stringProp>
+            <stringProp name="Argument.value">12345678-0001</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CUSTOMER_ID" elementType="Argument">
+            <stringProp name="Argument.name">CUSTOMER_ID</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="CUSTOMER_NAME" elementType="Argument">
+            <stringProp name="Argument.name">CUSTOMER_NAME</stringProp>
+            <stringProp name="Argument.value">kin</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TXN_ID" elementType="Argument">
+            <stringProp name="Argument.name">TXN_ID</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="START_TIME" elementType="Argument">
+            <stringProp name="Argument.name">START_TIME</stringProp>
+            <stringProp name="Argument.value">2020-11-01T00:00:00</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="END_TIME" elementType="Argument">
+            <stringProp name="Argument.name">END_TIME</stringProp>
+            <stringProp name="Argument.value">${__time(yyyy-MM-dd,)}T23:59:59</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="END_TIME2" elementType="Argument">
+            <stringProp name="Argument.name">END_TIME2</stringProp>
+            <stringProp name="Argument.value">${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
       </elementProp>
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
@@ -35,6 +71,24 @@
         <stringProp name="HTTPSampler.response_timeout"></stringProp>
       </ConfigTestElement>
       <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">x-correlation-id</stringProp>
+            <stringProp name="Header.value">${__RandomString(10, abcde12345)}</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <RandomVariableConfig guiclass="TestBeanGUI" testclass="RandomVariableConfig" testname="New account id" enabled="true">
+        <stringProp name="maximumValue">999999999</stringProp>
+        <stringProp name="minimumValue">100000000</stringProp>
+        <stringProp name="outputFormat"></stringProp>
+        <boolProp name="perThread">true</boolProp>
+        <stringProp name="randomSeed"></stringProp>
+        <stringProp name="variableName">NEW_ACCOUNT_ID</stringProp>
+      </RandomVariableConfig>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Customer Service" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -49,18 +103,6 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
-          <collectionProp name="UserParameters.names">
-            <stringProp name="1001977420">CUSTOMER_NAME</stringProp>
-          </collectionProp>
-          <collectionProp name="UserParameters.thread_values">
-            <collectionProp name="2066677943">
-              <stringProp name="106192">kin</stringProp>
-            </collectionProp>
-          </collectionProp>
-          <boolProp name="UserParameters.per_iteration">false</boolProp>
-        </UserParameters>
-        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get all customers" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -334,9 +376,9 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">4</stringProp>
+          <stringProp name="LoopController.loops">2</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.num_threads">4</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -344,22 +386,6 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
-          <collectionProp name="UserParameters.names">
-            <stringProp name="-318209907">ACCOUNT_ID</stringProp>
-            <stringProp name="-433440596">NEW_ACCOUNT_ID</stringProp>
-            <stringProp name="380930332">CUSTOMER_ID</stringProp>
-          </collectionProp>
-          <collectionProp name="UserParameters.thread_values">
-            <collectionProp name="-2019409802">
-              <stringProp name="-880648278">12345678-0001</stringProp>
-              <stringProp name="-880648277">12345678-0002</stringProp>
-              <stringProp name="49">1</stringProp>
-            </collectionProp>
-          </collectionProp>
-          <boolProp name="UserParameters.per_iteration">false</boolProp>
-        </UserParameters>
-        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get account by id" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
@@ -419,7 +445,7 @@
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert number of accounts" enabled="true">
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert number of accounts" enabled="false">
             <stringProp name="JSON_PATH">$.length()</stringProp>
             <stringProp name="EXPECTED_VALUE">1</stringProp>
             <boolProp name="JSONVALIDATION">true</boolProp>
@@ -502,7 +528,7 @@
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert number of accounts" enabled="true">
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert number of accounts" enabled="false">
             <stringProp name="JSON_PATH">$.length()</stringProp>
             <stringProp name="EXPECTED_VALUE">2</stringProp>
             <boolProp name="JSONVALIDATION">true</boolProp>
@@ -571,7 +597,7 @@
             <intProp name="Assertion.test_type">8</intProp>
           </ResponseAssertion>
           <hashTree/>
-          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert number of accounts" enabled="true">
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert number of accounts" enabled="false">
             <stringProp name="JSON_PATH">$.length()</stringProp>
             <stringProp name="EXPECTED_VALUE">1</stringProp>
             <boolProp name="JSONVALIDATION">true</boolProp>
@@ -633,26 +659,6 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <UserParameters guiclass="UserParametersGui" testclass="UserParameters" testname="User Parameters" enabled="true">
-          <collectionProp name="UserParameters.names">
-            <stringProp name="-1806431440">TXN_ID</stringProp>
-            <stringProp name="-318209907">ACCOUNT_ID</stringProp>
-            <stringProp name="-1058500438">START_TIME</stringProp>
-            <stringProp name="-1757236271">END_TIME</stringProp>
-            <stringProp name="1360250497">END_TIME2</stringProp>
-          </collectionProp>
-          <collectionProp name="UserParameters.thread_values">
-            <collectionProp name="160618499">
-              <stringProp name="49">1</stringProp>
-              <stringProp name="-880648278">12345678-0001</stringProp>
-              <stringProp name="972575735">2020-11-01T00:00:00</stringProp>
-              <stringProp name="1720644569">${__time(yyyy-MM-dd,)}T23:59:59</stringProp>
-              <stringProp name="1782864522">${__time(yyyy-MM-dd&apos;T&apos;HH:mm:ss,)}</stringProp>
-            </collectionProp>
-          </collectionProp>
-          <boolProp name="UserParameters.per_iteration">false</boolProp>
-        </UserParameters>
-        <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get transaction by id" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>

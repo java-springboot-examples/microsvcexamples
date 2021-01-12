@@ -28,7 +28,7 @@ services:
     build: ./customer/
     depends_on:
       - mysql5
-    image: jsu216/microsvc.sb.customer
+    image: jsu216/microsvc.sb.customer:${IMAGE_TAG}
     container_name: customer
     restart: on-failure
     ports:
@@ -42,7 +42,7 @@ services:
     depends_on:
       - mysql5
       - customer
-    image: jsu216/microsvc.sb.account
+    image: jsu216/microsvc.sb.account:${IMAGE_TAG}
     container_name: account
     restart: on-failure
     ports:
@@ -56,7 +56,7 @@ services:
     depends_on:
       - mysql5
       - account
-    image: jsu216/microsvc.sb.transaction
+    image: jsu216/microsvc.sb.transaction:${IMAGE_TAG}
     container_name: transaction
     restart: on-failure
     ports:
