@@ -8,10 +8,12 @@ spec:
   selector:
     matchLabels:
       app: ${APP}
+      name: ${NAME}
   template:
     metadata:
       labels:
         app: ${APP}
+        name: ${NAME}
     spec:
       containers:
         - name: ${NAME}
@@ -31,7 +33,7 @@ metadata:
   namespace: ${NS}
 spec:
   selector:
-    app: ${APP}
+    name: ${NAME}
   ports:
     - port: 80
       targetPort: 8080
@@ -61,4 +63,4 @@ spec:
               service:
                 name: ${NAME}
                 port:
-                  name: http-port
+                  number: 80
