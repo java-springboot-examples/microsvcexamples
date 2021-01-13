@@ -10,8 +10,8 @@
     </parent>
     <groupId>microsvc.sb</groupId>
     <artifactId>customer</artifactId>
-    <version>1.0.2</version>
-    <name>customer</name>
+    <version>1.0.3</version>
+    <name>customer-sb</name>
     <description>Demo project for Spring Boot Micro Service</description>
 
     <properties>

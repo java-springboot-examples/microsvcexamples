@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <contextName>account-sb</contextName>
+    <contextName>@project.name@</contextName>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!--<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>

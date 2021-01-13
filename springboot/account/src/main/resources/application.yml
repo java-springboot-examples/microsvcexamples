@@ -1,6 +1,6 @@
 info:
   app:
-    name: account-sb
+    name: @project.name@
     description: Account service based on Spring Boot.
     version: @project.version@
 
@@ -16,6 +16,15 @@ logging:
         type:
           descriptor:
             sql: error
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans, env, flyway, health, info, metrics, prometheus
+  endpoint:
+    health:
+      show-details: always
 
 server:
   port: 8082

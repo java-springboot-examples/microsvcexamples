@@ -8,11 +8,7 @@ logging:
 management:
   endpoints:
     web:
-      exposure:
-        include: beans, env, flyway, health, info, metrics, prometheus
-  endpoint:
-    health:
-      show-details: always
+      base-path: /@project.name@/actuator
 
 server:
   port: 8080

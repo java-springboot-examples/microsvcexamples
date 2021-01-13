@@ -1,6 +1,6 @@
 info:
   app:
-    name: transaction-sb
+    name: @project.name@
     description: Transaction service based on Spring Boot.
     version: @project.version@
 
@@ -15,6 +15,15 @@ logging:
         type:
           descriptor:
             sql: error
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans, env, flyway, health, info, metrics, prometheus
+  endpoint:
+    health:
+      show-details: always
 
 server:
   port: 8083
