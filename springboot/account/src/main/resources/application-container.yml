@@ -11,7 +11,7 @@ server:
 service:
   configs:
     - name: customer
-      url: http://customer:8081
+      url: http://customer:8081/customer-sb
 
 spring:
   datasource:

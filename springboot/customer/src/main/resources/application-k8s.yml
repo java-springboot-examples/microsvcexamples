@@ -1,14 +1,8 @@
 logging:
   config: classpath:/logback-k8s.xml
   level:
-    org.springframework.web.servlet: ERROR
     org.springframework: ERROR
     microsvc: DEBUG
-
-management:
-  endpoints:
-    web:
-      base-path: /@project.name@/actuator
 
 server:
   port: 8080

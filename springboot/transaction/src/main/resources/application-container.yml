@@ -11,7 +11,7 @@ server:
 service:
   configs:
     - name: account
-      url: http://account:8082
+      url: http://account:8082/account-sb
 
 spring:
   datasource:

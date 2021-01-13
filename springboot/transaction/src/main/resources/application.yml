@@ -8,7 +8,7 @@ logging:
   level:
     org.springframework.web.servlet: DEBUG
     org.springframework: ERROR
-    microsvc: DEBUG
+    microsvc.sb: DEBUG
     org:
       hibernate:
         sql: debug
@@ -27,13 +27,15 @@ management:
 
 server:
   port: 8083
+  servlet:
+    contextPath: /@project.name@
   error:
     include-message: always
 
 service:
   configs:
     - name: account
-      url: http://localhost:8082
+      url: http://localhost:8082/account-sb
 
 spring:
   main:

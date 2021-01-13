@@ -9,7 +9,7 @@ logging:
     #root: ERROR # set root level in logback config
     org.springframework.web.servlet: DEBUG
     org.springframework: ERROR
-    microsvc: DEBUG
+    microsvc.sb: DEBUG
     org:
       hibernate:
         sql: debug
@@ -28,13 +28,15 @@ management:
 
 server:
   port: 8082
+  servlet:
+    contextPath: /@project.name@
   error:
     include-message: always
 
 service:
   configs:
     - name: customer
-      url: http://localhost:8081
+      url: http://localhost:8081/customer-sb
 
 spring:
   main:
