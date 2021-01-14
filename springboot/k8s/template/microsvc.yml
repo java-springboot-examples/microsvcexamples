@@ -30,6 +30,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: ${NAME}
+  labels:
+    name: ${NAME}
   namespace: ${NS}
 spec:
   selector:
@@ -40,6 +42,25 @@ spec:
       protocol: TCP
       name: http-port
   type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ${NAME}
+  namespace: ${NS_PROMETHEUS}
+  labels:
+    prometheus: k8s
+spec:
+  selector:
+    matchLabels:
+      name: ${NAME}
+  endpoints:
+    - port: http-port
+      path: /${NAME}/actuator/prometheus
+      interval: 15s
+  namespaceSelector:
+    matchNames:
+      - ${NS}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

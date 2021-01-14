@@ -1,4 +1,4 @@
-# Spring boot based micro services
+# Spring boot based microservices
 
 - Build
 
